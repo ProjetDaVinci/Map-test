@@ -6,23 +6,37 @@ import { MapType } from "../MapComponents/types";
 import Modal from "react-modal";
 
 import {
+  AlertText,
   Button,
   Container,
+  FlexContainer,
   HeaderContainer,
   RelativeContainer,
   Sidebard,
 } from "./styles";
 import { useState } from "react";
 import FormAdd from "../FormAdd";
+import { useNavigate } from "react-router-dom";
+import { LOGIN_ROUTE } from "../../routes/UserRoutes/routes";
+import { Exit } from "../../UI/icons";
 
 const AppHeader = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const [setVisible, setIsVisible] = useState(false);
-  const getCoords = useSelector(selectors.setPoint.SelectPoints);
+  const isToken = useSelector(selectors.auth.SelectToken);
 
   const changeClose = () => {
     setIsVisible(false);
+  };
+
+  const signIn = () => {
+    navigate(LOGIN_ROUTE);
+  };
+
+  const signOut = () => {
+    dispatch(actions.auth.signOut());
   };
 
   const onDelete = (id: number) => {
@@ -42,7 +56,19 @@ const AppHeader = () => {
       <Sidebard>
         <RelativeContainer>
           <Container>
-            <Button onClick={() => setIsVisible(!setVisible)}>Добавитть</Button>
+            {isToken ? (
+              <FlexContainer>
+                <Button onClick={() => setIsVisible(!setVisible)}>
+                  Добавитть
+                </Button>
+                <Exit onClick={signOut} fill={"black"} />
+              </FlexContainer>
+            ) : (
+              <>
+                <Button onClick={signIn}>Войти</Button>
+                <AlertText>Чтобы добавить точки войдите в систему</AlertText>
+              </>
+            )}
 
             {points.map((point, key) => (
               <Point

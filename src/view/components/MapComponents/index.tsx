@@ -1,6 +1,6 @@
 import { YMaps, Map, Clusterer, Placemark } from "@pbe/react-yandex-maps";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { MapType, NewPoint } from "./types";
 import { useDispatch, useSelector } from "react-redux";
 import { actions, selectors } from "../../../redux/ducks";
@@ -22,6 +22,8 @@ const MapComponents = () => {
   const mapRef = useRef(undefined);
 
   const points = useSelector(selectors.points.SelectPoints);
+
+  const memoPoints = useMemo(() => points, [points]);
   const pointsSelect = useSelector(selectors.detailPoint.SelectPoints);
 
   const onPlacemarkClick = (point: MapType) => {
@@ -36,7 +38,7 @@ const MapComponents = () => {
     console.log("закрыть");
   };
 
-  // useEffect(() => {}, [pointsSelect]);
+  useEffect(() => {}, [points]);
 
   const onClickMap = (point: any) => {
     const coords = point.get("coords");
@@ -48,7 +50,7 @@ const MapComponents = () => {
     <>
       <YMaps>
         <Map
-          defaultState={mapState}
+          state={mapState}
           width={"100%"}
           height={"100%"}
           // onApiAvaliable={(ymaps: any) => console.log(ymaps)}
@@ -57,10 +59,10 @@ const MapComponents = () => {
           }}
           // instanceRef={(inst) => console.log(inst)}
           onClick={onClickMap}
-
-          // query={{
-          //   apikey: 'my_api_key',
-          // }}
+          apikey="https://api-maps.yandex.ru/2.1?apikey=b69e3030-c086-4573-8ec5-975724b21a7b"
+          query={{
+            apikey: "b69e3030-c086-4573-8ec5-975724b21a7b",
+          }}
         >
           <Clusterer
             options={{
@@ -70,7 +72,7 @@ const MapComponents = () => {
             }}
             onBalloonclose={closeDescription}
           >
-            {points.map((point, index) => (
+            {memoPoints.map((point, index) => (
               <Placemark
                 modules={["geoObject.addon.balloon", "geoObject.addon.hint"]}
                 key={index}

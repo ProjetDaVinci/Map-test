@@ -6,7 +6,6 @@ import UserScreen from "./UserRoutes";
 // import AuthScreen from './AuthRoutes';
 
 const Routes = () => {
-  //   const isToken = useSelector(selectors.auth.SelectToken);
   return <UserScreen />;
 };
 

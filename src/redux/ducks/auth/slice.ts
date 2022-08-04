@@ -1,7 +1,7 @@
-import { IAuthResponse } from "./types";
+import { IAuthReg, IAuthResponse, User } from "./types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: IAuthResponse = {} as IAuthResponse;
+const initialState: User = {} as User;
 
 const AuthSlice = createSlice({
   initialState,
@@ -9,12 +9,20 @@ const AuthSlice = createSlice({
   reducers: {
     signOut(state) {
       if (state.token) {
-        state.token = "";
-
-        state.user.isAuthorized = false;
-        state.user.password = "";
-        state.user.email = "";
-        state.user.id = "";
+        state = initialState;
+      }
+      return state;
+    },
+    signIn(state, { payload }: PayloadAction<IAuthReg>) {
+      if (payload) {
+        const user = {
+          email: payload.login,
+          password: payload.password,
+          token:
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NzU3ODQ0MzYsImlkIjo4Mn0.V4gybKIt9UsBxHCGJZk4CsxQHfAXRnAcvndTHZ2CdE",
+        };
+        state = user;
+        return state;
       }
       return state;
     },

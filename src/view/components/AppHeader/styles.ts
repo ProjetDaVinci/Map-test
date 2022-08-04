@@ -30,9 +30,9 @@ export const Button = styled.button`
   width: 100%;
   height: 50px;
   border-radius: 12px;
-  margin-bottom: 10px;
   transition: all 0.2s;
   cursor: pointer;
+  margin-right: 15px;
   &:hover {
     background-color: red;
   }
@@ -40,4 +40,19 @@ export const Button = styled.button`
 
 export const RelativeContainer = styled.div`
   position: relative;
+`;
+
+export const AlertText = styled.p`
+  font-size: 18px;
+  font-weight: 600;
+  color: red;
+  text-shadow: #9a7474 1px 0 10px;
+`;
+
+export const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+  align-items: center;
+  margin-bottom: 10px;
 `;

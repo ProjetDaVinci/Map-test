@@ -8,20 +8,7 @@ export type IAuthResponse = {
 export type User = {
   email: string;
   password: string;
-  isAuthorized: boolean;
-  deletedAt: string;
-  firstName: string;
-  lastName: string;
-  teamId: number | string;
-  linkedinLink: string;
-  avatarKey: string;
-  loggedInAt: string;
-  id: string;
-  imported: false;
-  role: string;
-  isReceivingNotifications: boolean;
-  createdAt: string;
-  updatedAt: string;
+  token: string;
 };
 
 export type IAuthData = {
@@ -30,7 +17,6 @@ export type IAuthData = {
 };
 
 export type IAuthReg = {
-  name: string;
+  password: string;
   login: string;
-  password_hash: string;
 };
