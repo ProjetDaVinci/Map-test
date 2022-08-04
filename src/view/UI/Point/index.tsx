@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { selectors } from "../../../redux/ducks";
 import { Close } from "../icons";
 import { Container, Content, TextContainer, Title } from "./styles";
 import { PropsEvent, PropsPoint } from "./types";
@@ -10,6 +12,8 @@ const Point = ({
   onDelete,
   onPlacemarkClick,
 }: PropsPoint & PropsEvent) => {
+  const isToken = useSelector(selectors.auth.SelectToken);
+
   return (
     <Container>
       <Content onClick={() => onPlacemarkClick({ descr, title, coords, id })}>
@@ -17,7 +21,7 @@ const Point = ({
           <Title>{title}</Title>
           <p>{descr}</p>
         </TextContainer>
-        <Close fill="black" onClick={() => onDelete(id)} />
+        {isToken ? <Close fill="black" onClick={() => onDelete(id)} /> : <></>}
       </Content>
     </Container>
   );

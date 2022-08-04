@@ -66,7 +66,9 @@ const AppHeader = () => {
             ) : (
               <>
                 <Button onClick={signIn}>Войти</Button>
-                <AlertText>Чтобы добавить точки войдите в систему</AlertText>
+                <AlertText>
+                  Чтобы добавить или удалить точки войдите в систему
+                </AlertText>
               </>
             )}
 
