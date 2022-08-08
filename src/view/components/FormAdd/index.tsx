@@ -32,6 +32,7 @@ const FormAdd: FC<FormModal> = ({ setIsVisible }) => {
           title: title,
         })
       );
+      dispatch(actions.setPoint.clearPoint());
     } else {
       console.log("Ошибка");
     }

@@ -16,6 +16,10 @@ const SetPointSlice = createSlice({
       }
       return state;
     },
+    clearPoint(state) {
+      state = initialState;
+      return state;
+    },
   },
 });
 

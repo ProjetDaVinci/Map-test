@@ -22,6 +22,8 @@ export const Container = styled.div`
   padding: 20px;
 `;
 
+export const ContainerPoints = styled.div``;
+
 export const Button = styled.button`
   z-index: 999999999;
   background-color: #fff;

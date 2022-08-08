@@ -9,12 +9,13 @@ import {
   AlertText,
   Button,
   Container,
+  ContainerPoints,
   FlexContainer,
   HeaderContainer,
   RelativeContainer,
   Sidebard,
 } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormAdd from "../FormAdd";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../routes/UserRoutes/routes";
@@ -26,6 +27,7 @@ const AppHeader = () => {
 
   const [setVisible, setIsVisible] = useState(false);
   const isToken = useSelector(selectors.auth.SelectToken);
+  const getPoint = useSelector(selectors.setPoint.GetPoints);
 
   const changeClose = () => {
     setIsVisible(false);
@@ -43,13 +45,25 @@ const AppHeader = () => {
     dispatch(actions.points.deletePoint(id));
   };
 
-  // const {width} = useWindowDimensions();
   const points = useSelector(selectors.points.SelectPoints);
 
   const onPlacemarkClick = (point: MapType) => {
     dispatch(actions.detailPoint.openDesc(point));
-    // dispatch(actions.detailPoint.closeDesc(point.id));
   };
+
+  const onAddPoint = () => {
+    if (getPoint.coords !== undefined) {
+      setIsVisible(!setVisible);
+    } else {
+      alert("Please select point");
+    }
+  };
+
+  useEffect(() => {
+    if (points.length === 0) {
+      dispatch(actions.detailPoint.closeDesc());
+    }
+  }, []);
 
   return (
     <HeaderContainer>
@@ -58,9 +72,7 @@ const AppHeader = () => {
           <Container>
             {isToken ? (
               <FlexContainer>
-                <Button onClick={() => setIsVisible(!setVisible)}>
-                  Добавитть
-                </Button>
+                <Button onClick={onAddPoint}>Добавитть</Button>
                 <Exit onClick={signOut} fill={"black"} />
               </FlexContainer>
             ) : (
@@ -71,18 +83,21 @@ const AppHeader = () => {
                 </AlertText>
               </>
             )}
-
-            {points.map((point, key) => (
-              <Point
-                descr={point.descr}
-                title={point.title}
-                key={key}
-                coords={point.coords}
-                id={point.id}
-                onDelete={onDelete}
-                onPlacemarkClick={onPlacemarkClick}
-              />
-            ))}
+            <ContainerPoints
+            // ref={ref}
+            >
+              {points.map((point, key) => (
+                <Point
+                  descr={point.descr}
+                  title={point.title}
+                  key={key}
+                  coords={point.coords}
+                  id={point.id}
+                  onDelete={onDelete}
+                  onPlacemarkClick={onPlacemarkClick}
+                />
+              ))}
+            </ContainerPoints>
           </Container>
         </RelativeContainer>
       </Sidebard>

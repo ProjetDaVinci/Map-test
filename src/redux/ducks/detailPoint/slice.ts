@@ -13,11 +13,8 @@ const detailPointSlice = createSlice({
         return state;
       }
     },
-    closeDesc(state, { payload }: PayloadAction<number>) {
-      if (state?.id === payload) {
-        state = initialState;
-        return state;
-      }
+    closeDesc(state) {
+      state = initialState;
       return state;
     },
   },

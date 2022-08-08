@@ -11,7 +11,7 @@ const PointSlice = createSlice({
     addPoint(state, { payload }: PayloadAction<PointsAdd>) {
       if (payload) {
         const Obj = {
-          id: parseInt(uniqueId()),
+          id: state.length + 1,
           coords: payload.coords,
           descr: payload.descr,
           title: payload.title,
@@ -20,7 +20,6 @@ const PointSlice = createSlice({
 
         return state;
       }
-      return state;
     },
     deletePoint(state, { payload }: PayloadAction<number>) {
       if (payload) {
