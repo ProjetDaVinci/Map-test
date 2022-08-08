@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PointsAdd, PointsType } from "./types";
-import uniqueId from "lodash/uniqueId";
 
 const initialState: PointsType[] = [] as PointsType[];
 
@@ -11,7 +10,7 @@ const PointSlice = createSlice({
     addPoint(state, { payload }: PayloadAction<PointsAdd>) {
       if (payload) {
         const Obj = {
-          id: state.length + 1,
+          id: state.length + 1 + Math.floor(Math.random() * 100),
           coords: payload.coords,
           descr: payload.descr,
           title: payload.title,
